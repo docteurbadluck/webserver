@@ -1,0 +1,30 @@
+backlog = 128
+ip = 127.0.0.1
+port = 8080
+
+ip = 127.0.0.2
+port = 8081
+
+error_page_filepath = /home/tdeliot/Desktop/webserver/www/error.html
+max_size_request_body = 1000
+
+list_allowed_method = GET POST DELETE
+
+redirection = /old-page  /new-page
+redirection = /legacy  /modern
+
+file_system_root = /website_name  /home/tdeliot/Desktop/webserver/www
+
+enable_directory_listing = true
+default_filepath = index.html
+
+enable_upload = true
+upload_folder = /home/tdeliot/Desktop/webserver/www/upload
+
+CGI_pathfile = /home/tdeliot/Desktop/webserver/webserv/srcs/6_external_tools/cgi/script1.py /home/tdeliot/Desktop/webserver/webserv/srcs/6_external_tools/cgi/script2.pl
+
+client_timeout = 10
+
+session_timeout = 1
+session_secure_only = false
+max_sessions = 200

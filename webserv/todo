@@ -1,0 +1,15 @@
+to do : 
+
+inclure les CGI. 			-> les CGI on besoin de leurs propres handler. 
+							-> on doit décomposé le nomm 
+                            -> on crée un process par request.
+                            ->on communique avec stdin et stdout. ainsi qu'avec les environnement variable.
+
+essayer de regler cette histoire de fd -> je pense que c est bon
+essayer d'upload de gros fichier // detect in header if the type is html text ou autre. si autre, utilise la boucle.
+
+upload ne marche pas  sans .something ->on the server side?  it is normal ? 
+
+stress test. 
+
+chunk answer
