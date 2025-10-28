@@ -13,8 +13,8 @@
 make  
 update the config file to match your config.
 ./webserver config.test  
-in your navigator :  
-http::/<ip>:<port>/<site_name>/
+in your navigator :  `http://<ip>:<port>/<site_name>/`
+
 ---
 INDEX HANDLING:  
 <img width="600" height="600" alt="Screenshot from 2025-10-28 16-49-49" src="https://github.com/user-attachments/assets/7c840854-2632-4fff-b1dd-288bc363dc8a" />  
