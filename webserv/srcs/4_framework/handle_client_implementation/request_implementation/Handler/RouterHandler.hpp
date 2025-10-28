@@ -11,7 +11,7 @@ class RouterHandler : public IRequestHandler
 							const t_server_rules & server_rules,
 							SessionHandlerUC &session_handler);
 		std::vector<std::string>	get_file_content();
-		int get_is_big_body();
+		//int get_is_big_body();
 		RouterHandler();
 		~RouterHandler();
 	private :

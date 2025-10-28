@@ -11,7 +11,7 @@ class IRequestHandler
 								const t_server_rules& server_rules,
 								SessionHandlerUC &session_handler) = 0;
 	virtual std::vector<std::string>	get_file_content() = 0;
-	virtual int							get_is_big_body() = 0;
+	//virtual int							get_is_big_body() = 0;
 
 	virtual ~IRequestHandler() {};
 };

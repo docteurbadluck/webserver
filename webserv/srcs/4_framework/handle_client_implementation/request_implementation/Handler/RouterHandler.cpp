@@ -58,7 +58,7 @@ std::string RouterHandler::handle(const t_parsed_request &req, const t_server_ru
 			else if (it->first == "GET")
 			{
 				result = it->second->handle(req, server_rules, session_handler);
-				get_is_big_body();
+				//get_is_big_body();
 			}
 			else
 			{
@@ -78,8 +78,8 @@ std::vector<std::string>	RouterHandler::get_file_content()
 	return (handlers["GET"]->get_file_content());
 }
 
-
+/*
 int RouterHandler::get_is_big_body()
 {
 	return (handlers["GET"]->get_is_big_body());
-}
+}*/
