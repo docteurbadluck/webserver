@@ -1,0 +1,6 @@
+test if writing fail, the client is disconnected
+
+test if reading fail the client is disconnected.
+
+think about the architecture of the requestHandler block.
+

@@ -1,0 +1,34 @@
+build/srcs/start_server/internal/run_server/d_handle_request/2_usescases/RequestHandler/RequestHandlerUC.o: \
+ srcs/start_server/internal/run_server/d_handle_request/2_usescases/RequestHandler/RequestHandlerUC.cpp \
+ srcs/start_server/internal/run_server/d_handle_request/2_usescases/RequestHandler/RequestHandlerUC.hpp \
+ srcs/start_server/internal/1_entyties/server_rules.hpp \
+ srcs/start_server/internal/run_server/e_handle_session/2_usescases/SesssionHandler/SessionHandlerUC.hpp \
+ srcs/start_server/internal/run_server/e_handle_session/2_usescases/session_data.hpp \
+ srcs/start_server/internal/include/usecases.hpp \
+ srcs/start_server/internal/init_server/b_build_server/2_usescases/ServerBuilder/ServerBuilder.hpp \
+ srcs/start_server/internal/init_server/b_build_server/3_interfaces/ISocketServer.hpp \
+ srcs/start_server/internal/init_server/b_build_server/3_interfaces/ISocketFactory.hpp \
+ srcs/start_server/internal/init_server/a_init_server_rules/2_usescases/RulesInitialiser/RulesInitialiser.hpp \
+ srcs/start_server/internal/init_server/a_init_server_rules/2_usescases/server_config.hpp \
+ srcs/start_server/internal/run_server/c_run_server/2_usescases/RunnerServer/RunnerServer.hpp \
+ srcs/start_server/internal/run_server/c_run_server/3_interfaces/IRunServer.hpp \
+ srcs/start_server/internal/run_server/d_handle_request/2_usescases/parsed_request.hpp \
+ srcs/start_server/internal/run_server/d_handle_request/3_interfaces/IRequestParser.hpp \
+ srcs/start_server/internal/run_server/d_handle_request/3_interfaces/IRequestHandler.hpp \
+ srcs/start_server/internal/run_server/e_handle_session/3_interfaces/ISessionPolicy.hpp
+srcs/start_server/internal/run_server/d_handle_request/2_usescases/RequestHandler/RequestHandlerUC.hpp:
+srcs/start_server/internal/1_entyties/server_rules.hpp:
+srcs/start_server/internal/run_server/e_handle_session/2_usescases/SesssionHandler/SessionHandlerUC.hpp:
+srcs/start_server/internal/run_server/e_handle_session/2_usescases/session_data.hpp:
+srcs/start_server/internal/include/usecases.hpp:
+srcs/start_server/internal/init_server/b_build_server/2_usescases/ServerBuilder/ServerBuilder.hpp:
+srcs/start_server/internal/init_server/b_build_server/3_interfaces/ISocketServer.hpp:
+srcs/start_server/internal/init_server/b_build_server/3_interfaces/ISocketFactory.hpp:
+srcs/start_server/internal/init_server/a_init_server_rules/2_usescases/RulesInitialiser/RulesInitialiser.hpp:
+srcs/start_server/internal/init_server/a_init_server_rules/2_usescases/server_config.hpp:
+srcs/start_server/internal/run_server/c_run_server/2_usescases/RunnerServer/RunnerServer.hpp:
+srcs/start_server/internal/run_server/c_run_server/3_interfaces/IRunServer.hpp:
+srcs/start_server/internal/run_server/d_handle_request/2_usescases/parsed_request.hpp:
+srcs/start_server/internal/run_server/d_handle_request/3_interfaces/IRequestParser.hpp:
+srcs/start_server/internal/run_server/d_handle_request/3_interfaces/IRequestHandler.hpp:
+srcs/start_server/internal/run_server/e_handle_session/3_interfaces/ISessionPolicy.hpp:

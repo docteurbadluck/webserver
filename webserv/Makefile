@@ -5,83 +5,95 @@ RM        := rm -rf
 
 # Project names
 NAME      := webserv
-TEST_NAME := unit_tests
 
 # Directories
 SRC_DIR      := srcs
 BUILD_DIR    := build
-TEST_DIR     := tests
-TEST_OBJ_DIR := $(BUILD_DIR)/tests
 
 # Includes
 SRC_INCLUDES  := $(shell find $(SRC_DIR) -type f -name '*.hpp' -exec dirname {} \; | sort -u)
-TEST_INCLUDES := $(shell find $(TEST_DIR) -type f -name '*.hpp' -exec dirname {} \; | sort -u)
 INCLUDES     := $(sort $(SRC_INCLUDES) $(TEST_INCLUDES))
 INCDIRS      := $(addprefix -I, $(INCLUDES))
 
 # Source files
-SRCS := \
-	srcs/5_main/main.cpp \
-	srcs/4_framework/init_rules_implementation/file_io/FileIO.cpp \
-	srcs/4_framework/init_rules_implementation/ConfigReader/ConfigReader.cpp \
-	srcs/4_framework/init_rules_implementation/ConfigReader/init_configuration_struct/ConfigReader_init_config_struct.cpp \
-	srcs/4_framework/init_rules_implementation/ConfigReader/init_configuration_struct/ConfigReader_init_enable.cpp \
-	srcs/4_framework/init_rules_implementation/ConfigReader/init_configuration_struct/ConfigReader_init_filepath.cpp \
-	srcs/4_framework/init_rules_implementation/ConfigReader/init_configuration_struct/ConfigReader_init_number.cpp \
-	srcs/4_framework/init_rules_implementation/ConfigReader/init_configuration_struct/ConfigReader_init_config_session.cpp \
-	srcs/4_framework/init_rules_implementation/ConfigReader/ConfigReader_verify_tools.cpp \
-	srcs/4_framework/init_rules_implementation/ConfigReader/ConfigReader_get_parsed_config.cpp \
-	srcs/2_usescases/init_server_rules/RulesInitialiser/RulesInitialiser.cpp \
-	srcs/4_framework/print_tools/print_server_rules.cpp \
-	srcs/2_usescases/build_server/ServerBuilder.cpp \
-	srcs/4_framework/build_server_implementation/socket_implementation/ServerSocket.cpp \
-	srcs/4_framework/build_server_implementation/socket_implementation/bind_socket.cpp \
-	srcs/4_framework/build_server_implementation/SocketFactory/SocketFactory.cpp \
-	srcs/4_framework/handle_client_implementation/Client/Client.cpp \
-	srcs/4_framework/handle_client_implementation/Client/ClientTools.cpp \
-	srcs/4_framework/handle_client_implementation/Client/ClientExtract.cpp \
-	srcs/4_framework/run_server_implementation/EpollServerRunner/EpollServerRunner.cpp \
-	srcs/4_framework/run_server_implementation/EpollServerRunner/Epoll_run.cpp \
-	srcs/4_framework/run_server_implementation/EpollServerRunner/Epoll_init.cpp \
-	srcs/4_framework/run_server_implementation/EpollServerRunner/Epoll_handle_connection.cpp \
-	srcs/4_framework/run_server_implementation/EpollServerRunner/Epoll_handle_client.cpp \
-	srcs/4_framework/run_server_implementation/EpollServerRunner/Epoll_timeout.cpp \
-	srcs/2_usescases/run_server/RunnerServer.cpp \
-	srcs/4_framework/handle_client_implementation/request_implementation/RequestParser/RequestParser.cpp \
-	srcs/4_framework/handle_client_implementation/request_implementation/RequestParser/read_component.cpp \
-	srcs/4_framework/handle_client_implementation/request_implementation/RequestParser/init_field.cpp \
-	srcs/4_framework/print_tools/print_parsed_request.cpp \
-	srcs/4_framework/handle_client_implementation/request_implementation/Handler/RouterHandler.cpp \
-	srcs/4_framework/handle_client_implementation/request_implementation/Handler/GetHandler/GetHandler.cpp \
-	srcs/4_framework/handle_client_implementation/request_implementation/Handler/GetHandler/handle.cpp \
-	srcs/4_framework/handle_client_implementation/request_implementation/Handler/GetHandler/build_http_response.cpp \
-	srcs/2_usescases/handle_client/handle_request/RequestHandler/RequestHandlerUC.cpp \
-	srcs/2_usescases/handle_client/handle_session/SesssionHandler/SessionHandlerUC.cpp \
-	srcs/4_framework/handle_client_implementation/session_implementation/policy/SessionPolicyFramework.cpp \
-	srcs/4_framework/handle_client_implementation/session_implementation/storage/SessionStorageFramework.cpp \
-	srcs/4_framework/handle_client_implementation/request_implementation/Handler/BaseHandler/BaseHandler.cpp \
-	srcs/4_framework/handle_client_implementation/request_implementation/Handler/BaseHandler/buid_file_path.cpp \
-	srcs/4_framework/handle_client_implementation/request_implementation/Handler/DeleteHandler/DeleteHandler.cpp \
-	srcs/4_framework/handle_client_implementation/request_implementation/Handler/PostHandler/PostUploadHandler/PostUploadHandler.cpp \
-	srcs/4_framework/handle_client_implementation/request_implementation/Handler/PostHandler/PostLoginHandler/PostLoginHandler.cpp \
-	srcs/4_framework/handle_client_implementation/request_implementation/Handler/PostHandler/PostLoginHandler/build_http_response_login.cpp \
-	srcs/4_framework/handle_client_implementation/request_implementation/Handler/PostHandler/PostCloseHandler/PostCloseHandler.cpp \
-	srcs/4_framework/handle_client_implementation/request_implementation/Handler/TrashHandler/TrashHandler.cpp \
-	srcs/4_framework/handle_client_implementation/request_implementation/Handler/PostHandler/PostTrashHandler/PostTrashHandler.cpp
-	
+
+SRC_USECASES = \
+srcs/start_server/internal/init_server/a_init_server_rules/2_usescases/RulesInitialiser/RulesInitialiser.cpp \
+srcs/start_server/internal/init_server/b_build_server/2_usescases/ServerBuilder/ServerBuilder.cpp \
+\
+srcs/start_server/internal/run_server/c_run_server/2_usescases/RunnerServer/RunnerServer.cpp \
+srcs/start_server/internal/run_server/d_handle_request/2_usescases/RequestHandler/RequestHandlerUC.cpp \
+srcs/start_server/internal/run_server/e_handle_session/2_usescases/SesssionHandler/SessionHandlerUC.cpp 
+
+SRC_FRAMEWORK = \
+srcs/start_server/internal/init_server/a_init_server_rules/4_framework/ConfigReader/ConfigReader.cpp \
+srcs/start_server/internal/init_server/a_init_server_rules/4_framework/ConfigReader/ConfigReader_get_parsed_config.cpp \
+srcs/start_server/internal/init_server/a_init_server_rules/4_framework/ConfigReader/internal/ConfigReader_verify_tools.cpp \
+srcs/start_server/internal/init_server/a_init_server_rules/4_framework/ConfigReader/internal/ConfigReader_verify.cpp \
+srcs/start_server/internal/init_server/a_init_server_rules/4_framework/ConfigReader/internal/init_configuration_struct/ConfigReader_init_config_session.cpp \
+srcs/start_server/internal/init_server/a_init_server_rules/4_framework/ConfigReader/internal/init_configuration_struct/ConfigReader_init_config_struct.cpp \
+srcs/start_server/internal/init_server/a_init_server_rules/4_framework/ConfigReader/internal/init_configuration_struct/ConfigReader_init_enable.cpp \
+srcs/start_server/internal/init_server/a_init_server_rules/4_framework/ConfigReader/internal/init_configuration_struct/ConfigReader_init_filepath.cpp \
+srcs/start_server/internal/init_server/a_init_server_rules/4_framework/ConfigReader/internal/init_configuration_struct/ConfigReader_init_number.cpp \
+srcs/start_server/internal/init_server/a_init_server_rules/4_framework/file_io/FileIO.cpp \
+\
+srcs/start_server/internal/init_server/b_build_server/4_framework/ServerSocket/bind_socket.cpp \
+srcs/start_server/internal/init_server/b_build_server/4_framework/ServerSocket/ServerSocket.cpp \
+srcs/start_server/internal/init_server/b_build_server/4_framework/SocketFactory/SocketFactory.cpp \
+\
+\
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/a_Epoll_run.cpp \
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/b_Epoll_handle_connection.cpp \
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/c_Epoll_handle_message.cpp \
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/d_Epoll_handlers.cpp \
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/e_Epoll_send_response_to_client.cpp \
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/Epoll_init.cpp \
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/EpollServerRunner.cpp \
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/Epoll_disconect.cpp\
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/InitEpoll/InitEpoll.cpp\
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/StreamIn/StreamIn.cpp\
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/ConnectionManager/ConnectionManager.cpp\
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/TimeoutManager/TimeoutManager.cpp\
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/CommandManager/CommandManager.cpp\
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/StreamOut/StreamOut.cpp\
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/ModeSwitcher/ModeSwitcher.cpp\
+\
+srcs/start_server/internal/run_server/d_handle_request/4_framework/Handler/BaseHandler/BaseHandler.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/Handler/BaseHandler/buid_file_path.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/Handler/DeleteHandler/DeleteHandler.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/Handler/GetHandler/GetHandler.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/Handler/GetHandler/handle.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/Handler/GetHandler/build_http_response.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/Handler/PostHandler/PostCloseHandler/PostCloseHandler.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/Handler/PostHandler/PostLoginHandler/PostLoginHandler.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/Handler/PostHandler/PostLoginHandler/build_http_response_login.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/Handler/PostHandler/PostTrashHandler/PostTrashHandler.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/Handler/PostHandler/PostUploadHandler/PostUploadHandler.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/Handler/RedirectHandler/RedirectHandler.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/Handler/CGIHandler/CGIHandler.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/Handler/RouterHandler.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/Handler/TrashHandler/TrashHandler.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/Handler/MethodNotAllowedHandler/MethodNotAllowedHandler.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/Handler/InternalErrorHandler/InternalErrorHandler.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/RequestParser/internal/init_field.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/RequestParser/internal/read_component.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/RequestParser/RequestParser.cpp \
+srcs/start_server/internal/run_server/d_handle_request/4_framework/RequestParser/RequestParser_parse_txt_request.cpp \
+\
+srcs/start_server/internal/run_server/e_handle_session/4_framework/policy/SessionPolicyFramework.cpp \
+srcs/start_server/internal/run_server/e_handle_session/4_framework/storage/SessionStorageFramework.cpp \
+srcs/start_server/internal/run_server/f_client_module/4_framework/Client/Client.cpp \
+srcs/start_server/internal/run_server/f_client_module/4_framework/Client/ClientExtract.cpp \
+srcs/start_server/internal/run_server/f_client_module/4_framework/Client/ClientTools.cpp \
+
+
+SRC_MAIN = srcs/start_server/start_server.cpp \
+           srcs/main/main.cpp
+
+SRCS = $(SRC_USECASES) $(SRC_INTERFACES) $(SRC_FRAMEWORK) $(SRC_MAIN)
 # Object files (in build/)
 OBJS := $(SRCS:%.cpp=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)
-
-# Objects without main.cpp (for tests)
-NON_MAIN_SRCS := $(filter-out $(SRC_DIR)/5_main/main.cpp, $(SRCS))
-NON_MAIN_OBJS := $(NON_MAIN_SRCS:%.cpp=$(BUILD_DIR)/%.o)
-
-# Test source and object files
-TEST_SRCS := \
-	tests/test.cpp 
-
-TEST_OBJS := $(TEST_SRCS:%.cpp=$(BUILD_DIR)/%.o)
 
 # Default target
 all: $(NAME)
@@ -95,22 +107,15 @@ $(BUILD_DIR)/%.o: %.cpp
 	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) $(INCDIRS) -c $< -o $@
 
-# Build and run tests
-test: $(TEST_NAME)
-	./$(TEST_NAME)
-
-$(TEST_NAME): $(NON_MAIN_OBJS) $(TEST_OBJS)
-	$(CXX) $(CXXFLAGS) $(INCDIRS) $^ -o $@
-
 # Cleaning
 clean:
 	$(RM) $(BUILD_DIR)
 
 fclean: clean
-	$(RM) $(NAME) $(TEST_NAME)
+	$(RM) $(NAME) 
 
 re: fclean all
 
 -include $(DEPS)
 
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re

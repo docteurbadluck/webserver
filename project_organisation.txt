@@ -1,0 +1,13 @@
+
+
+general organisation :
+	- follow the invert dependency principal
+	- structure needed are placed with the usecases.
+	- try to let in the hpp only interface and hide the rest into internal. 
+
+
+improvement idea : 
+	- create internal/ for each object to hide the private methode
+	(and let only in the main file public methode (init server, run server)
+	-class client have a lot of function inside. how to do with this object with a lot of function public function inside ? if it's so much function inside it's because it's highly used by handle_request.
+    - enfait dans un monde parfait, J ai init server qui init tout et Run server qui irai avec handle_request et handle_session.
