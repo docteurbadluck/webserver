@@ -2,7 +2,7 @@
 
 void test_two_get_requests_in_one_tcp_packet(void)
 {
-    TEST_MESSAGE("HTTP pipelining: two GET in one send");
+    //TEST_MESSAGE("HTTP pipelining: two GET in one send");
 
     system(
         "printf \"GET /a HTTP/1.1\r\n\r\n"
@@ -35,7 +35,7 @@ void test_two_get_requests_in_one_tcp_packet(void)
 
 void test_http10_close_after_first_request(void)
 {
-    TEST_MESSAGE("HTTP/1.0 close: server should close after first response");
+    //TEST_MESSAGE("HTTP/1.0 close: server should close after first response");
 
     system(
         "printf \"GET /first HTTP/1.0\r\nConnection: close\r\n\r\n"
@@ -65,7 +65,7 @@ void test_http10_close_after_first_request(void)
 
 void test_five_get_requests_in_one_tcp_packet(void)
 {
-    TEST_MESSAGE("HTTP pipelining: five GET in one send");
+    //TEST_MESSAGE("HTTP pipelining: five GET in one send");
 
     system(
         "printf \"GET /a HTTP/1.1\r\n\r\n"

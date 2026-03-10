@@ -2,7 +2,7 @@
 
 void test_http_1_0(void)
 {
-    TEST_MESSAGE("GET /website_name/ (HTTP 1.0)");
+    //TEST_MESSAGE("GET /website_name/ (HTTP 1.0)");
 
     http_response_t res =
         make_request_and_parse_http_version_1_0("GET /website_name/", 0);
@@ -13,7 +13,7 @@ void test_http_1_0(void)
 
 void test_http_1_1(void)
 {
-    TEST_MESSAGE("GET /website_name/ (HTTP 1.1)");
+    //TEST_MESSAGE("GET /website_name/ (HTTP 1.1)");
 
     http_response_t res =
         make_request_and_parse("GET /website_name/");

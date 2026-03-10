@@ -1,0 +1,220 @@
+HTTP/1.1 404 Not Found
+Content-Length: 907
+Content-Type: text/html
+Set-Cookie: session_id=4d5bacafbc06fc9c64c235649aa12ed8; Path=/
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <style>
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 10%;
+        }
+        h1 {
+            font-size: 3em;
+            color: #d9534f;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        .container {
+            background: #fff;
+            padding: 2em;
+            margin: auto;
+            display: inline-block;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Oops! Something went wrong.</h1>
+        <p>The page you are looking for might be unavailable,<br> 
+           temporarily down or may not exist.</p>
+    </div>
+</body>
+</html>
+
+HTTP/1.1 404 Not Found
+Content-Length: 907
+Content-Type: text/html
+Set-Cookie: session_id=b7450b571d6125325dae64a0b8656473; Path=/
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <style>
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 10%;
+        }
+        h1 {
+            font-size: 3em;
+            color: #d9534f;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        .container {
+            background: #fff;
+            padding: 2em;
+            margin: auto;
+            display: inline-block;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Oops! Something went wrong.</h1>
+        <p>The page you are looking for might be unavailable,<br> 
+           temporarily down or may not exist.</p>
+    </div>
+</body>
+</html>
+
+HTTP/1.1 404 Not Found
+Content-Length: 907
+Content-Type: text/html
+Set-Cookie: session_id=d9d780353ca40fc070a452a1f7366f05; Path=/
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <style>
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 10%;
+        }
+        h1 {
+            font-size: 3em;
+            color: #d9534f;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        .container {
+            background: #fff;
+            padding: 2em;
+            margin: auto;
+            display: inline-block;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Oops! Something went wrong.</h1>
+        <p>The page you are looking for might be unavailable,<br> 
+           temporarily down or may not exist.</p>
+    </div>
+</body>
+</html>
+
+HTTP/1.1 404 Not Found
+Content-Length: 907
+Content-Type: text/html
+Set-Cookie: session_id=c6a3e5e01536aa3d9fd7162071955683; Path=/
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <style>
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 10%;
+        }
+        h1 {
+            font-size: 3em;
+            color: #d9534f;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        .container {
+            background: #fff;
+            padding: 2em;
+            margin: auto;
+            display: inline-block;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Oops! Something went wrong.</h1>
+        <p>The page you are looking for might be unavailable,<br> 
+           temporarily down or may not exist.</p>
+    </div>
+</body>
+</html>
+
+HTTP/1.1 404 Not Found
+Content-Length: 907
+Content-Type: text/html
+Set-Cookie: session_id=6061e7ceb6c04c2a2b3a48be6d3fda18; Path=/
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <style>
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 10%;
+        }
+        h1 {
+            font-size: 3em;
+            color: #d9534f;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        .container {
+            background: #fff;
+            padding: 2em;
+            margin: auto;
+            display: inline-block;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Oops! Something went wrong.</h1>
+        <p>The page you are looking for might be unavailable,<br> 
+           temporarily down or may not exist.</p>
+    </div>
+</body>
+</html>
+

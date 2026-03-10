@@ -1,16 +1,11 @@
-# Compiler and flags
 CXX       := g++
 CXXFLAGS  := -Wall -Wextra -Werror -std=c++98 -g -MMD -MP
 RM        := rm -rf
 
-# Project names
 NAME      := webserv
-
-# Directories
 SRC_DIR      := srcs
 BUILD_DIR    := build
 
-# Includes
 SRC_INCLUDES  := $(shell find $(SRC_DIR) -type f -name '*.hpp' -exec dirname {} \; | sort -u)
 INCLUDES     := $(sort $(SRC_INCLUDES) $(TEST_INCLUDES))
 INCDIRS      := $(addprefix -I, $(INCLUDES))
@@ -40,7 +35,6 @@ srcs/start_server/internal/init_server/a_init_server_rules/4_framework/file_io/F
 srcs/start_server/internal/init_server/b_build_server/4_framework/ServerSocket/bind_socket.cpp \
 srcs/start_server/internal/init_server/b_build_server/4_framework/ServerSocket/ServerSocket.cpp \
 srcs/start_server/internal/init_server/b_build_server/4_framework/SocketFactory/SocketFactory.cpp \
-\
 \
 srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/a_Epoll_run.cpp \
 srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/b_Epoll_handle_connection.cpp \
@@ -91,7 +85,7 @@ SRC_MAIN = srcs/start_server/start_server.cpp \
            srcs/main/main.cpp
 
 SRCS = $(SRC_USECASES) $(SRC_INTERFACES) $(SRC_FRAMEWORK) $(SRC_MAIN)
-# Object files (in build/)
+
 OBJS := $(SRCS:%.cpp=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)
 

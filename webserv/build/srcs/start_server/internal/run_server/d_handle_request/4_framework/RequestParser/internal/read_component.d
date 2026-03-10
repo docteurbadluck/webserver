@@ -1,8 +1,0 @@
-build/srcs/start_server/internal/run_server/d_handle_request/4_framework/RequestParser/internal/read_component.o: \
- srcs/start_server/internal/run_server/d_handle_request/4_framework/RequestParser/internal/read_component.cpp \
- srcs/start_server/internal/run_server/d_handle_request/4_framework/RequestParser/RequestParser.hpp \
- srcs/start_server/internal/run_server/d_handle_request/2_usescases/parsed_request.hpp \
- srcs/start_server/internal/run_server/d_handle_request/3_interfaces/IRequestParser.hpp
-srcs/start_server/internal/run_server/d_handle_request/4_framework/RequestParser/RequestParser.hpp:
-srcs/start_server/internal/run_server/d_handle_request/2_usescases/parsed_request.hpp:
-srcs/start_server/internal/run_server/d_handle_request/3_interfaces/IRequestParser.hpp:

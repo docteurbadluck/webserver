@@ -2,7 +2,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -I unity
 
-NAME = server_tester
+NAME = testeur_webserver
 
 SRC = test.c \
     unity/unity.c \

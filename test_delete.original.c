@@ -3,7 +3,7 @@
 void test_delete_200(void)
 {
     TEST_MESSAGE("DELETE /website_name/upload/delete_ok.txt should return 200");
-    system("echo hello > /home/osboxes/Desktop/webserver/www/upload/delete_ok.txt");
+    system("echo hello > /home/docteurbadluck/Desktop/rearanged_webserver/www/upload/delete_ok.txt");
     http_response_t res =
         make_request_and_parse("DELETE /website_name/upload/delete_ok.txt");
     TEST_ASSERT_EQUAL_INT(200, res.status_code);

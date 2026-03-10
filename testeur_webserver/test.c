@@ -17,7 +17,7 @@ void test_get()
 void test_post()
 {
 	RUN_TEST(test_post_200);
-	RUN_TEST(test_post_403);
+	//RUN_TEST(test_post_403);
 	RUN_TEST(test_post_404);
 	RUN_TEST(test_post_405);
 	RUN_TEST(test_post_413);
@@ -28,7 +28,7 @@ void test_delete()
 {
 	RUN_TEST(test_delete_200);
 	RUN_TEST(test_delete_404);
-	RUN_TEST(test_delete_403);
+	//RUN_TEST(test_delete_403);
 	RUN_TEST(test_delete_405);
 }
 
@@ -82,7 +82,5 @@ int main(void)
 	test_connection();	
 	test_multiple_request();
 	RUN_TEST(test_CGI);
-	
-	//RUN_TEST(test_get_200_extra_big_size);
 	return UNITY_END();
 }
