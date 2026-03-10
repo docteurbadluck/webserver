@@ -5,7 +5,6 @@ std::string CGIHandler::handle(const t_parsed_request &req, const t_server_rules
 	verify_mandatory_field(req);
 	init_field(req, server_rules, session_handler);
 	std::string url_path = map_to_url_path(req.path, server_rules.file_system_root);
-	
 	std::string filepath = build_file_path(url_path, server_rules);
 	
 	int flag = 0;
@@ -54,15 +53,12 @@ int CGIHandler::check_file_status(const std::string &file_path, const t_server_r
     struct stat st;
     (void)server_rules;
 
-    // Vérifie si le fichier existe
     if (stat(file_path.c_str(), &st) != 0)
         return 404;
 
-    // Vérifie si c'est un répertoire
     if (S_ISDIR(st.st_mode))
         return 403;
-
-    // Vérifie si le parent est accessible en écriture (droit de suppression)
+	
     std::string parent = file_path.substr(0, file_path.find_last_of('/'));
     if (access(parent.c_str(), W_OK | X_OK) != 0)
         return 403;
