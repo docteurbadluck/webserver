@@ -1,4 +1,4 @@
-Hey jackob, i hope you are alrigth :
+Hey jakob, i hope you are alrigth :
 
 run RUN_ME_ONCE.sh
 
