@@ -55,19 +55,36 @@ void test_multiple_request()
 	
 void test_CGI(void)
 {
-    TEST_MESSAGE("GET /website_name/CGI/test.py");
-	system("rm -f CGI.rec");
-    system("curl -s http://127.0.0.1:8080/website_name/CGI/test.py -o CGI.rec");
+    TEST_MESSAGE("GET /website_name/CGI/test.py should execute CGI script");
 
-    FILE *f = fopen("CGI.rec", "r");
-    TEST_ASSERT_NOT_NULL(f);
+    int sock;
+    struct sockaddr_in server;
 
-    char buffer[1024];
-    size_t read = fread(buffer, 1, sizeof(buffer) - 1, f);
-    buffer[read] = '\0';
-    fclose(f);
+    sock = socket(AF_INET, SOCK_STREAM, 0);
+    TEST_ASSERT_TRUE_MESSAGE(sock >= 0, "Socket creation failed");
 
-    TEST_ASSERT_NOT_NULL(strstr(buffer, "<html><body><h1>CGI called</h1></body></html>"));
+    server.sin_family = AF_INET;
+    server.sin_port = htons(8080);
+    server.sin_addr.s_addr = inet_addr("127.0.0.1");
+
+    int conn = connect(sock, (struct sockaddr *)&server, sizeof(server));
+    TEST_ASSERT_TRUE_MESSAGE(conn >= 0, "Connect failed");
+
+    const char *req = "GET /website_name/CGI/test.py HTTP/1.1\r\nHost: localhost:8080\r\n\r\n";
+    send(sock, req, strlen(req), 0);
+
+    /* Read until connection closes (CGI uses Connection: close) */
+    char response[8192];
+    size_t total = 0;
+    int r;
+    while ((r = recv(sock, response + total, sizeof(response) - total - 1, 0)) > 0)
+        total += r;
+    response[total] = '\0';
+    close(sock);
+
+    TEST_ASSERT_TRUE_MESSAGE(total > 0, "Server did not respond");
+    TEST_ASSERT_NOT_NULL_MESSAGE(strstr(response, "200 OK"), "Expected 200 OK status");
+    TEST_ASSERT_NOT_NULL_MESSAGE(strstr(response, "Hello from CGI"), "Expected CGI output in body");
 }
 
 int main(void)
@@ -82,5 +99,8 @@ int main(void)
 	test_connection();	
 	test_multiple_request();
 	RUN_TEST(test_CGI);
+	RUN_TEST(test_cgi_python);
+	RUN_TEST(test_cgi_post);
+	RUN_TEST(test_cgi_not_found);
 	return UNITY_END();
 }

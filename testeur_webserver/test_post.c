@@ -32,19 +32,21 @@ void test_post_405(void)
 void test_post_413(void)
 {
     //TEST_MESSAGE("POST /website_name/upload/bigfile.txt should return 413");
-    
-    char big_body[1100];
+
+    int body_size = 2000100;
+    char *big_body = (char *)malloc(body_size);
 
 	int i = 0;
 
-	while (i < 1100)
+	while (i < body_size - 1)
 	{
 		big_body[i] = 'a';
 		i++;
 	}
-	big_body[1099] = 0;
-    
+	big_body[body_size - 1] = 0;
+
     http_response_t res = post_request("/website_name/upload/bigfile.txt", big_body);
+    free(big_body);
     TEST_ASSERT_EQUAL_INT(413, res.status_code);
 }
 

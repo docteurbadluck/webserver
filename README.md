@@ -1,26 +1,45 @@
-Hey jakob, i hope you are alrigth :
+*This project has been created as part of the 42 curriculum by jholterh, tdeliot.*
 
-run RUN_ME_ONCE.sh
+## Description
 
-then 
-    cd webserv; make; ./webserv config.conf;
+Webserv is a lightweight HTTP/1.1 web server written in C++98. It handles GET, POST, and DELETE requests, serves static files, supports CGI script execution, file uploads, directory listing, HTTP redirections, cookies and sessions, and multiple virtual server configurations. The server uses a single epoll instance for non-blocking I/O multiplexing.
 
-in another terminal:
-    cd testeur_webserver; make; ./testeur_webserver;
+## Instructions
 
-all test should be succeed. if not, hit me up ^^
+### Compile
 
-that the place you have to work:
-webserv/srcs/start_server/internal/run_server/d_handle_request/4_framework/Handler/CGIHandler
-even more in build_http_response for now it just look if the file is inside and return the appropriate error code.
-this module is not that clean if i'm totally honest ^^
-I spend looong time to clean the rest of the code so i have'nt the time for this one. if you want to rework,
-Base handler can be optimized to be reuse better. with the test, it is easy to see if you broke something.
-(for now 403 do not work anymore. i don't know why, not a big deal for now)
-please add some test for your part (it's required by the subject to use our own test)
-i think it's enough for now, 
+```bash
+cd webserv
+make
+```
 
-if you need to handle stream : you have to implement this one for your handler.
-{
-    return handlers["GET"]->get_fd_stream();
-}
+### Run
+
+```bash
+./webserv config.conf
+```
+
+Then open `http://127.0.0.1:8080` in a browser.
+
+### Run Tests
+
+```bash
+cd testeur_webserver
+make
+./testeur_webserver
+```
+
+## Resources
+
+- [RFC 7230 - HTTP/1.1 Message Syntax and Routing](https://datatracker.ietf.org/doc/html/rfc7230)
+- [RFC 7231 - HTTP/1.1 Semantics and Content](https://datatracker.ietf.org/doc/html/rfc7231)
+- [RFC 3875 - The Common Gateway Interface (CGI) Version 1.1](https://datatracker.ietf.org/doc/html/rfc3875)
+- [epoll(7) - Linux I/O event notification](https://man7.org/linux/man-pages/man7/epoll.7.html)
+- [NGINX beginners guide](https://nginx.org/en/docs/beginners_guide.html)
+
+### AI Usage
+
+AI tools (Claude) were used during development for:
+- Debugging HTTP parsing edge cases and CGI environment variable setup
+- Reviewing code for compliance with the 42 subject requirements
+- Generating test cases for chunked transfer encoding

@@ -23,27 +23,6 @@ void TrashHandler::verify_mandatory_field(const t_parsed_request &req)
 std::string TrashHandler::build_http_response(int status_code, const std::string &body, const std::string &error_page_filepath, const std::string &filepath)
 {
 	(void)body;
-	(void)filepath;
-	std::ostringstream buffer;
-	std::string response_body;
-
-	std::ifstream file(error_page_filepath.c_str());
-	if (file)
-	{
-		std::ostringstream file_content;
-		file_content << file.rdbuf();
-		response_body = file_content.str();
-	}
-	if (status_code == 501)
-		buffer << this->http_version + " 501 Not Implemented\r\n";
-	else
-		buffer << this->http_version + " 400 Bad Request\r\n";
-	buffer << handler_connection_type();
-	buffer << "Content-Length: " << response_body.size() << "\r\n";
-	buffer << "Content-Type: " << get_mime_type(filepath, status_code) << "\r\n";
-	buffer << "\r\n"; 
-	buffer << response_body;
-    close_flag = find_out_close_flag(buffer.str());
-	return buffer.str();
+	std::string response_body = load_error_page(error_page_filepath);
+	return build_standard_response(status_code, response_body, filepath, false, false);
 }
-

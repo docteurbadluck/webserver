@@ -26,6 +26,7 @@ class BaseHandler
 								SessionHandlerUC &session_handler) = 0;
 		std::vector<std::string>	get_file_content();
 		int							get_fd_stream();
+		pid_t						get_cgi_pid();
 
 
 		int							close_flag; 
@@ -50,6 +51,16 @@ class BaseHandler
 		std::vector<std::string> 	read_file_chunks(const std::string &file_path, std::size_t chunk_size);
 		std::string					handler_connection_type();
 		int							find_out_close_flag(const std::string &answer);
+		std::string					load_error_page(const std::string &error_page_filepath);
+		std::string					status_line(int status_code);
+		static std::string			reason_phrase(int status_code);
+		static std::string			replace_all_occurrences(const std::string &src, const std::string &from, const std::string &to);
+		std::string					build_file_path_simple(const std::string &path, const t_server_rules &server_rules);
+		std::string					build_standard_response(int status_code,
+										const std::string &response_body,
+										const std::string &filepath,
+										bool include_cookie,
+										bool force_close);
 		std::vector<std::string>	file_content;
 		std::string					http_version;
 		bool						directory_listing;
@@ -59,5 +70,6 @@ class BaseHandler
 		t_server_rules				server_rules;
 
 		int							fd_stream;
+		pid_t						cgi_pid;
 };
 

@@ -22,9 +22,6 @@ public:
     streamout_status	pump(IClient *client);
 
 private:
-	/*
-    bool	send_buffer(IClient *client, StreamState &s);
-    bool	send_file(IClient *client, StreamState &s);*/
 	streamout_status send_buffer(IClient*, StreamState&);
 	streamout_status send_file(IClient*, StreamState&);
 	void	prepare_next_response(IClient *client);

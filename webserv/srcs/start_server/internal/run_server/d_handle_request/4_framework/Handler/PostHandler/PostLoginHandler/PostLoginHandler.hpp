@@ -13,10 +13,6 @@ class PostLoginHandler : public BaseHandler
 		int 		update_session_from_body(const std::string &body);
 		std::map<std::string,std::string> parse_urlencoded_body(const std::string &body);
 		std::map<std::string,std::string> parse_json_body(const std::string &body);
-		std::string load_response_body(int status_code,
-						const std::string &error_page_filepath);
-		std::string status_line(int status_code);
-		std::string build_headers(const std::string &response_body);
 };
 
 

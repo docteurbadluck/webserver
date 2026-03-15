@@ -15,12 +15,12 @@ class RequestHandlerUC
 		void						init_request_txt(const std::string &req);
 		t_parsed_request			parse_header();
 		int							get_fd_stream();
+		pid_t						get_cgi_pid();
 		std::vector<std::string>	file_content;
 		int							get_close_flag();
 
 	private :
 		IRequestParser		        &parser;
 		IRequestHandler          	&handler;
-		int 	    				is_big_body;
 };
 

@@ -1,7 +1,9 @@
 #include "InitEpoll.hpp"
+#include <signal.h>
 
 bool InitEpoll::initialise_epoll(EpollServerRunner &epoll_runner, std::vector<ISocketServer*>& servers)
 {
+	signal(SIGCHLD, SIG_IGN);
 	initialise_epoll_fd(epoll_runner.epoll_fd);	
 	link_server_socket_to_epoll(epoll_runner.epoll_fd, servers, epoll_runner.accepting_socket);
 	add_stdin_fd(epoll_runner.epoll_fd);

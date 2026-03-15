@@ -20,6 +20,7 @@ void EpollServerRunner::handle_requests(IClient *client)
 
         ans.close_flag = request_handler.get_close_flag();
         ans.body_fd    = request_handler.get_fd_stream();
+        ans.cgi_pid    = request_handler.get_cgi_pid();
 
         client->pending_answers.push_back(ans);
     }
