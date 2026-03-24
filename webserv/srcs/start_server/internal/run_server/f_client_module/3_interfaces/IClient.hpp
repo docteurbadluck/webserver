@@ -28,8 +28,9 @@ struct raw_request_s
     bool        body_complete;
     std::size_t expected_body_size;
     bool        is_chunked;
+    bool        body_too_large;
 
-    raw_request_s(): header_complete(false), body_complete(false), expected_body_size(0), is_chunked(false){}
+    raw_request_s(): header_complete(false), body_complete(false), expected_body_size(0), is_chunked(false), body_too_large(false){}
 };
 
 

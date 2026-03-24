@@ -37,6 +37,11 @@ bool StreamIn::has_chunked_encoding(const std::string &headers) const
         || lower_headers.find("transfer-encoding:chunked") != std::string::npos;
 }
 
+void StreamIn::set_max_body_size(std::size_t size)
+{
+    max_body_size = size;
+}
+
 stream_status_e StreamIn::read_from_fd(int fd, IClient &client)
 {
     char buffer[4096];
@@ -120,6 +125,14 @@ bool StreamIn::extract_header(IClient &client)
     ssize_t cl = extract_content_length(client.current.headers);
     if (cl < 0)
         return false;
+
+    if (max_body_size > 0 && static_cast<std::size_t>(cl) > max_body_size)
+    {
+        client.current.expected_body_size = cl;
+        client.current.body_complete = true;
+        client.current.body_too_large = true;
+        return true;
+    }
 
     client.current.expected_body_size = cl;
 

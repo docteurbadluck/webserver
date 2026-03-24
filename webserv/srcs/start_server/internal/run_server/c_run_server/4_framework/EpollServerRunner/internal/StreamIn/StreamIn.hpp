@@ -17,8 +17,10 @@ class StreamIn
 public:
     stream_status_e read_from_fd(int fd, IClient &client);
 	stream_status_e parse_from_overflow(IClient &client);
+    void set_max_body_size(std::size_t size);
 
 private:
+    std::size_t max_body_size;
     bool extract_header(IClient &client);
     bool extract_body(IClient &client);
     bool extract_chunked_body(IClient &client);
