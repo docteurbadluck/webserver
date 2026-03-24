@@ -33,7 +33,7 @@ void test_post_413(void)
 {
     //TEST_MESSAGE("POST /website_name/upload/bigfile.txt should return 413");
 
-    int body_size = 2000100;
+    int body_size = 104857700; /* just over 100MB config limit */
     int sock;
     struct sockaddr_in server;
 

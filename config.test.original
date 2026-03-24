@@ -6,7 +6,7 @@ ip = 127.0.0.2
 port = 8081
 
 error_page_filepath = /home/docteurbadluck/Desktop/rearanged_webserver/webserv/srcs/start_server/internal/init_server/a_init_server_rules/5_external_tool/default_error.html
-max_size_request_body = 2000000
+max_size_request_body = 104857600
 
 list_allowed_method = GET POST DELETE
 
