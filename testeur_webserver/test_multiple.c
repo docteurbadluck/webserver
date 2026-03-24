@@ -7,15 +7,17 @@ void test_two_get_requests_in_one_tcp_packet(void)
     system(
         "printf \"GET /a HTTP/1.1\r\n\r\n"
         "GET /b HTTP/1.1\r\n\r\n\" | "
-        "nc -q 0 127.0.0.1 8080 > response.txt"
+        "nc -q 2 127.0.0.1 8080 > response.txt"
     );
 
     FILE *f = fopen("response.txt", "r");
     TEST_ASSERT_NOT_NULL(f);
 
-    char buffer[4096];
-    size_t read = fread(buffer, 1, sizeof(buffer) - 1, f);
-    buffer[read] = '\0';
+    char buffer[65536];
+    size_t total = 0, r;
+    while ((r = fread(buffer + total, 1, sizeof(buffer) - total - 1, f)) > 0)
+        total += r;
+    buffer[total] = '\0';
 
     fclose(f);
 

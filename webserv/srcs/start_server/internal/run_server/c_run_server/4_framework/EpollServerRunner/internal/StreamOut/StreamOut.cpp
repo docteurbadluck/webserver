@@ -120,6 +120,11 @@ streamout_status StreamOut::send_file(IClient *client, StreamState &s)
     }
 
     s.fd_offset += sent;
+    if (sent < r)
+    {
+        s.buffer.assign(buf + sent, r - sent);
+        s.offset = 0;
+    }
     return STREAMOUT_CONTINUE;
 }
 

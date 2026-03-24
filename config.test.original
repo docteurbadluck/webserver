@@ -27,7 +27,7 @@ CGI_pathfile = /home/docteurbadluck/Desktop/rearanged_webserver/www/CGI/test.py
 
 restrained_filepath = only_post_directory/ {POST} only_get_directory/ {GET} delete_forbiden_directory/ {GET,POST}
 
-client_timeout = 10
+client_timeout = 30
 
 session_timeout = 1
 session_secure_only = false

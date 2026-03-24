@@ -4,6 +4,7 @@
 bool InitEpoll::initialise_epoll(EpollServerRunner &epoll_runner, std::vector<ISocketServer*>& servers)
 {
 	signal(SIGCHLD, SIG_IGN);
+	signal(SIGPIPE, SIG_IGN);
 	initialise_epoll_fd(epoll_runner.epoll_fd);	
 	link_server_socket_to_epoll(epoll_runner.epoll_fd, servers, epoll_runner.accepting_socket);
 	add_stdin_fd(epoll_runner.epoll_fd);
@@ -45,10 +46,7 @@ void InitEpoll::add_listening_socket(int fd, int epoll_fd, std::vector<int>& act
 
 void InitEpoll::set_socket_non_blocking(int fd)
 {
-	int flags = fcntl(fd, F_GETFL, 0);
-	if (flags == -1) 
-		flags = 0;
-	fcntl(fd, F_SETFL, flags | O_NONBLOCK);
+	fcntl(fd, F_SETFL, O_NONBLOCK);
 }
 
 

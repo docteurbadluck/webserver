@@ -4,11 +4,18 @@ void EpollServerRunner::run()
 {
 	while (this->running)
 	{
-		int n = wait_for_events();
-		process_events(n);
-		this->timeout_manager.check_clients_timeout(
-					this->clients, this->server_rules, this->epoll_fd);
-		this->session_handler.purge_expired_sessions();
+		try
+		{
+			int n = wait_for_events();
+			process_events(n);
+			this->timeout_manager.check_clients_timeout(
+						this->clients, this->server_rules, this->epoll_fd);
+			this->session_handler.purge_expired_sessions();
+		}
+		catch (const std::exception &e)
+		{
+			std::cerr << "Event loop error: " << e.what() << std::endl;
+		}
 	}
 }
 

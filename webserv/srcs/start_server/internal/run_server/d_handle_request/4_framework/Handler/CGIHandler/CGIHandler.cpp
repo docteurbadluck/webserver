@@ -180,11 +180,6 @@ void CGIHandler::setup_env(const std::string &filepath, const t_parsed_request &
 	else
 		env_vars.push_back("SERVER_PROTOCOL=HTTP/1.0");
 
-	// Pass through OPENAI_API_KEY if set
-	const char *api_key = getenv("OPENAI_API_KEY");
-	if (api_key)
-		env_vars.push_back(std::string("OPENAI_API_KEY=") + api_key);
-
 	// Cookies
 	if (!req.cookies.empty())
 	{

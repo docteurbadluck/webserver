@@ -34,19 +34,51 @@ void test_post_413(void)
     //TEST_MESSAGE("POST /website_name/upload/bigfile.txt should return 413");
 
     int body_size = 2000100;
-    char *big_body = (char *)malloc(body_size);
+    int sock;
+    struct sockaddr_in server;
 
-	int i = 0;
+    sock = socket(AF_INET, SOCK_STREAM, 0);
+    TEST_ASSERT_TRUE_MESSAGE(sock >= 0, "Socket creation failed");
 
-	while (i < body_size - 1)
-	{
-		big_body[i] = 'a';
-		i++;
-	}
-	big_body[body_size - 1] = 0;
+    server.sin_family = AF_INET;
+    server.sin_port = htons(8080);
+    server.sin_addr.s_addr = inet_addr("127.0.0.1");
 
-    http_response_t res = post_request("/website_name/upload/bigfile.txt", big_body);
-    free(big_body);
+    int conn = connect(sock, (struct sockaddr *)&server, sizeof(server));
+    TEST_ASSERT_TRUE_MESSAGE(conn >= 0, "Connect failed");
+
+    char headers[512];
+    snprintf(headers, sizeof(headers),
+        "POST /website_name/upload/bigfile.txt HTTP/1.1\r\n"
+        "Host: localhost:8080\r\n"
+        "Content-Length: %d\r\n"
+        "Content-Type: text/plain\r\n"
+        "\r\n", body_size);
+    send(sock, headers, strlen(headers), 0);
+
+    char chunk[4096];
+    memset(chunk, 'a', sizeof(chunk));
+    int sent_total = 0;
+    while (sent_total < body_size)
+    {
+        int to_send = body_size - sent_total;
+        if (to_send > (int)sizeof(chunk))
+            to_send = sizeof(chunk);
+        int s = send(sock, chunk, to_send, 0);
+        if (s <= 0)
+            break;
+        sent_total += s;
+    }
+
+    char response[8192];
+    size_t total = 0;
+    int r;
+    while ((r = recv(sock, response + total, sizeof(response) - total - 1, 0)) > 0)
+        total += r;
+    response[total] = '\0';
+    close(sock);
+
+    http_response_t res = parse_http_response(response);
     TEST_ASSERT_EQUAL_INT(413, res.status_code);
 }
 

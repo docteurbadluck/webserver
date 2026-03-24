@@ -5,6 +5,9 @@
 #include <sstream>
 #include <cstdlib>
 
+static const std::size_t MAX_OVERFLOW_SIZE = 1073741824 + 8192; // 1GB body + 8KB headers
+static const std::size_t MAX_HEADER_SIZE = 8192;
+
 std::size_t StreamIn::extract_content_length(const std::string &headers) const
 {
     const std::string key = "Content-Length:";
@@ -46,6 +49,8 @@ stream_status_e StreamIn::read_from_fd(int fd, IClient &client)
         return STREAM_ERROR;
     }
 
+    if (client.overflow.size() + bytes > MAX_OVERFLOW_SIZE)
+        return STREAM_ERROR;
     client.overflow.append(buffer, bytes);
     return STREAM_NEED_MORE_DATA;
 }
@@ -92,6 +97,12 @@ bool StreamIn::extract_header(IClient &client)
 
     size_t pos = overflow.find("\r\n\r\n");
     if (pos == std::string::npos)
+    {
+        if (overflow.size() > MAX_HEADER_SIZE)
+            return false;
+        return false;
+    }
+    if (pos > MAX_HEADER_SIZE)
         return false;
 
     client.current.headers = overflow.substr(0, pos + 4);

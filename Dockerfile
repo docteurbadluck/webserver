@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     make \
     python3 \
     curl \
+    netcat-openbsd \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
