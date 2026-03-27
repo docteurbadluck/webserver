@@ -11,10 +11,7 @@ void EpollServerRunner::init(std::vector<ISocketServer*> servers)
 // sockets tools 
 void EpollServerRunner::set_socket_non_blocking(int fd)
 {
-	int flags = fcntl(fd, F_GETFL, 0);
-	if (flags == -1) 
-		flags = 0;
-	fcntl(fd, F_SETFL, flags | O_NONBLOCK);
+	fcntl(fd, F_SETFL, O_NONBLOCK);
 }
 
 bool EpollServerRunner::is_new_client(int fd) const

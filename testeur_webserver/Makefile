@@ -1,6 +1,6 @@
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -I unity
+CFLAGS = -Wall -Wextra -Werror -I unity -D_GNU_SOURCE
 
 NAME = testeur_webserver
 
@@ -12,7 +12,8 @@ SRC = test.c \
 	test_delete.c \
 	test_multiple.c \
 	test_redirect.c \
-	test_connection.c 
+	test_connection.c \
+	test_cgi.c
 
 BUILD_DIR = build
 

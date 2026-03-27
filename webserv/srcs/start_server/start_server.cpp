@@ -3,15 +3,23 @@
 int START_SERVER(char **argv)
 {
     t_server_rules  server_rules;
-    ServerBuilder   *server_builder;
+    ServerBuilder   *server_builder = NULL;
     SocketFactory   socket_factory;
 
     if (init_rules_for_the_server(server_rules, argv[1]))
         return 1;
-
-    server_builder = build_the_server(server_rules, socket_factory);
-    run_the_server(server_builder, server_rules);
-    delete server_builder;
+    try
+    {
+        server_builder = build_the_server(server_rules, socket_factory);
+        run_the_server(server_builder, server_rules);
+        delete server_builder;
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "Fatal error: " << e.what() << std::endl;
+        delete server_builder;
+        return 1;
+    }
     return (0);
 }
 
@@ -47,7 +55,7 @@ ServerBuilder *build_the_server(const t_server_rules &server_rules, ISocketFacto
 		std::cerr << "Building server error." <<std::endl;
 		std::cerr << "Exception caught: " << e.what() << std::endl;
 		delete new_server_builder;
-		exit(1);
+		throw;
 	}
 	std::cout << "Server built successfully." << std::endl;
 	return new_server_builder;
@@ -74,7 +82,6 @@ void run_the_server(ServerBuilder *server_builder, const t_server_rules &server_
 	{
 		std::cerr << "run the server error." <<std::endl;
 		std::cerr << "Exception caught: " << e.what() << std::endl;
-		exit(1);
 	}
 }
 

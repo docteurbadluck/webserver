@@ -85,6 +85,10 @@ void test_redirect_wrong_name(void);
 void test_http_1_0(void);
 void test_http_1_1(void);
 
+void test_cgi_python(void);
+void test_cgi_post(void);
+void test_cgi_not_found(void);
+
 
 
 

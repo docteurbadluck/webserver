@@ -27,23 +27,10 @@ std::string PostCloseHandler::build_http_response(int status_code, const std::st
 	(void)body;
 	(void)filepath;
 	(void)error_page_filepath;
-	std::ostringstream	buffer;
-	std::string			response_body;
+	std::string response_body;
 
-	if (status_code == 403)
-		buffer << this->http_version +" 403 Wrong Password\r\n";
-	else
-	{
-		buffer << this->http_version +" 200 OK\r\n";
-		if (response_body.empty())
-			response_body = "<html><body>Close Server</body></html>"; 
-	}
-	buffer << handler_connection_type();
-	buffer << "Content-Length: " << response_body.size() << "\r\n";
-	buffer << "Content-Type: " << "text/html" << "\r\n";
-	buffer << "\r\n"; 
-	if (status_code != 204)
-		buffer << response_body;
-    close_flag = find_out_close_flag(buffer.str());
-	return buffer.str();
+	if (status_code == 200)
+		response_body = "<html><body>Close Server</body></html>";
+
+	return build_standard_response(status_code, response_body, "", false, false);
 }

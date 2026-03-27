@@ -2,7 +2,7 @@
 
 EpollServerRunner::EpollServerRunner(const t_server_rules &server_rules, SessionHandlerUC &session_handler, RequestHandlerUC &request_handler) : server_rules(server_rules), session_handler(session_handler), request_handler(request_handler)
 {
-
+	stream_in.set_max_body_size(server_rules.max_size_request_body);
 }
 
 EpollServerRunner::~EpollServerRunner()

@@ -23,10 +23,6 @@ int EpollServerRunner::accept_connection(int server_fd)
 {
 	int client_fd = accept(server_fd, NULL, NULL);
 	if (client_fd == -1)
-	{
-		if (errno == EAGAIN || errno == EWOULDBLOCK)
-			return -1;
-		throw std::runtime_error("accept failed");
-	}
+		return -1;
 	return client_fd;
 }

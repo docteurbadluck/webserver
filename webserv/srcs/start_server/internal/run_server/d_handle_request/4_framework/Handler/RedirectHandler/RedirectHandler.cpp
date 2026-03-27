@@ -1,4 +1,3 @@
-
 #include "RedirectHandler.hpp"
 #include <sstream>
 #include <fstream>
@@ -50,34 +49,24 @@ std::string RedirectHandler::build_http_response(
     const std::string &error_page_filepath)
 {
     std::ostringstream buffer;
-   std::string response_body;
 	(void)body;
-    /* ---------- STATUS LINE ---------- */
-    if (status_code == 301)
-        buffer << this->http_version +" 301 Moved Permanently\r\n";
-    else if (status_code == 302)
-        buffer << this->http_version + " 302 Found\r\n";
-    else if (status_code == 404)
-        buffer << this->http_version +" 404 Not Found\r\n";
 
-    /* ---------- REDIRECTION ---------- */
+    buffer << status_line(status_code);
+
     if (status_code == 301 || status_code == 302)
     {
         buffer << "Location: " << file_path << "\r\n";
         buffer << "Content-Length: 0\r\n";
-		buffer<< handler_connection_type();	
+		buffer << handler_connection_type();
         buffer << "\r\n";
         return buffer.str();
     }
 
-    /* ---------- ERROR PAGE ---------- */
-    std::ifstream file(error_page_filepath.c_str());
-    if (file.is_open())
-    {
-        std::ostringstream tmp;
-        tmp << file.rdbuf();
-        response_body = tmp.str();
-    }
+    std::ostringstream code_str;
+    code_str << status_code;
+    std::string response_body = load_error_page(error_page_filepath);
+    response_body = replace_all_occurrences(response_body, "{{statusCode}}", code_str.str());
+    response_body = replace_all_occurrences(response_body, "{{reasonPhrase}}", reason_phrase(status_code));
 	buffer << handler_connection_type();
     buffer << "Content-Type: text/html\r\n";
     buffer << "Content-Length: " << response_body.size() << "\r\n";
@@ -123,25 +112,3 @@ std::string RedirectHandler::check_redirection(
 
     return "";
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

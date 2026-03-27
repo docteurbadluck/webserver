@@ -57,6 +57,11 @@ int		RequestHandlerUC::get_fd_stream()
 	return this->handler.get_fd_stream();
 }
 
+pid_t	RequestHandlerUC::get_cgi_pid()
+{
+	return this->handler.get_cgi_pid();
+}
+
 int RequestHandlerUC::get_close_flag()
 {
 	return this->handler.get_close_flag();

@@ -42,7 +42,7 @@ void ConfigReader::verify_mandatory_fields(const t_server_config &new_config)
 	if (new_config.default_filepath.empty())
 		throw std::runtime_error("Error config : default_filepath is missing");
 	if (new_config.CGI_pathfile.empty())
-		throw std::runtime_error("Error config : ip is missing");
+		throw std::runtime_error("Error config : CGI_pathfile is missing");
 	if (new_config.enable_upload == true && new_config.upload_folder.empty())
 		throw std::runtime_error("Error config : upload_folder is missing");
 }

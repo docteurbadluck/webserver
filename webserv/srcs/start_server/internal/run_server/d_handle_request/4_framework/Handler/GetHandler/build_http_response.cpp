@@ -18,7 +18,18 @@ std::string GetHandler::build_http_response(int status_code,
 											const std::string &filepath)
 {
 	std::ostringstream buffer;
-	std::string response_body = load_response_body(status_code, body, error_page_filepath);
+	std::string response_body;
+
+	if (status_code != 200)
+	{
+		std::ostringstream code_str;
+		code_str << status_code;
+		response_body = load_error_page(error_page_filepath);
+		response_body = replace_all_occurrences(response_body, "{{statusCode}}", code_str.str());
+		response_body = replace_all_occurrences(response_body, "{{reasonPhrase}}", reason_phrase(status_code));
+	}
+	else
+		response_body = interpret_html_body(body, this->session_handler);
 
 	buffer << status_line(status_code);
 	buffer << build_headers(response_body, filepath, status_code);
@@ -26,36 +37,6 @@ std::string GetHandler::build_http_response(int status_code,
 	if (this->fd_stream == -1)
 		buffer << response_body;
 	return buffer.str();
-}
-
-std::string GetHandler::load_response_body(int status_code,
-											const std::string &body,
-											const std::string &error_page_filepath)
-{
-	std::string response_body = interpret_html_body(body, this->session_handler);
-
-	if (status_code != 200 && !error_page_filepath.empty())
-	{
-		std::ifstream file(error_page_filepath.c_str());
-		if (file)
-		{
-			std::ostringstream file_content;
-			file_content << file.rdbuf();
-			response_body = file_content.str();
-		}
-	}
-	return response_body;
-}
-
-std::string GetHandler::status_line(int status_code)
-{
-	if (status_code == 404)
-		return this->http_version + " 404 Not Found\r\n";
-	else if (status_code == 403)
-		return this->http_version + " 403 Forbidden\r\n";
-	else if (status_code == 500)
-		return this->http_version + " 500 Internal Server Error\r\n";
-	return this->http_version + " 200 OK\r\n";
 }
 
 std::string GetHandler::build_headers(const std::string &response_body,
@@ -66,11 +47,9 @@ std::string GetHandler::build_headers(const std::string &response_body,
 	buffer << handler_connection_type();
 	buffer << "Content-Length: " << response_body.size() << "\r\n";
 	buffer << "Content-Type: " << get_mime_type(filepath, status_code) << "\r\n";
-	
+
 	if (get_mime_type(filepath, status_code) != "text/plain" && get_mime_type(filepath, status_code) != "text/html" )
-	{
 		this->fd_stream = open(filepath.c_str(), O_RDONLY| O_NONBLOCK);
-	}
 
 	if (this->set_cookie_flag == false)
 	{
@@ -81,4 +60,3 @@ std::string GetHandler::build_headers(const std::string &response_body,
 	buffer << "\r\n";
 	return buffer.str();
 }
-

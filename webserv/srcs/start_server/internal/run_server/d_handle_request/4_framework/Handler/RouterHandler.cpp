@@ -12,7 +12,7 @@
 #include "CGIHandler.hpp"
 
 
-RouterHandler::RouterHandler()
+RouterHandler::RouterHandler() : last_used_handler(NULL)
 {
 	handlers["GET"] = new GetHandler();
 	handlers["DELETE"] = new DeleteHandler();
@@ -44,87 +44,49 @@ RouterHandler::~RouterHandler()
 	delete handlers["CGIHandler"];
 }
 
+std::string RouterHandler::dispatch(const std::string &name, const t_parsed_request &req, const t_server_rules &server_rules, SessionHandlerUC &session_handler)
+{
+	last_used_handler = handlers[name];
+	std::string result = last_used_handler->handle(req, server_rules, session_handler);
+	close_flag = last_used_handler->close_flag;
+	return result;
+}
+
 std::string RouterHandler::handle(const t_parsed_request &req, const t_server_rules &server_rules, SessionHandlerUC &session_handler)
 {
-	std::map<std::string, BaseHandler*>::iterator it = handlers.find(req.methode);
-	std::string result;
-
 	if (req.path == "/return_internal_error/")
-	{
-		result = handlers["InternalErrorHandler"]->handle(req, server_rules, session_handler);
-		close_flag = handlers["InternalErrorHandler"]->close_flag;
-		return result; 
-	}
+		return dispatch("InternalErrorHandler", req, server_rules, session_handler);
 
-	//just to show that any exeption will be catch and return a internal error (status code 500)
 	if (req.path == "/cause_internal_error")
-	{
 		throw std::runtime_error("Forced internal error for testing");
-	}
 
 	if (needs_redirection(req.path, server_rules))
-	{	
-		result = handlers["RedirectHandler"]->handle(
-			req, server_rules, session_handler);
-		close_flag = handlers["RedirectHandler"]->close_flag;
-		return result;
-    }
+		return dispatch("RedirectHandler", req, server_rules, session_handler);
 
 	if (!check_method_allowed(req.path, req.methode, server_rules.restrained_filepath))
-	{
-		result = handlers["MethodNotAllowedHandler"]->handle(req, server_rules, session_handler);
-		close_flag = handlers["MethodNotAllowedHandler"]->close_flag;
+		return dispatch("MethodNotAllowedHandler", req, server_rules, session_handler);
+
+	std::string result = dispatch("CGIHandler", req, server_rules, session_handler);
+	if (!result.empty())
 		return result;
-	}
 
-			result = handlers["CGIHandler"]->handle(req, server_rules, session_handler);
-			close_flag = handlers["CGIHandler"]->close_flag;
-			if (result.size())
-				return result;
-
-	
+	std::map<std::string, BaseHandler*>::iterator it = handlers.find(req.methode);
 	if (it != handlers.end())
 	{
-			if (it->first == "POST")
-			{
-				if (req.path.find("/upload") != std::string::npos)
-				{
-					result =  handlers["POSTUpload"]->handle(req, server_rules, session_handler);
-					close_flag = handlers["POSTUpload"]->close_flag;
-				}
-				else if (req.path.find("/login") != std::string::npos)
-				{
-					result =  handlers["PostLogin"]->handle(req, server_rules, session_handler);
-					close_flag = handlers["PostLogin"]->close_flag;
-				}
-				else if (req.path.find("/close") != std::string::npos)
-				{
-					result =  handlers["PostClose"]->handle(req, server_rules, session_handler);
-					close_flag = handlers["PostClose"]->close_flag;
-				}
-				else
-				{
-					result =  handlers["PostTrash"]->handle(req, server_rules, session_handler);
-					close_flag = handlers["PostTrash"]->close_flag;
-				}
-			}
-			else if (it->first == "GET")
-			{
-				result = it->second->handle(req, server_rules, session_handler);
-				close_flag = handlers["GET"]->close_flag;
-			}
+		if (it->first == "POST")
+		{
+			if (req.path.find("/upload") != std::string::npos)
+				return dispatch("POSTUpload", req, server_rules, session_handler);
+			else if (req.path.find("/login") != std::string::npos)
+				return dispatch("PostLogin", req, server_rules, session_handler);
+			else if (req.path.find("/close") != std::string::npos)
+				return dispatch("PostClose", req, server_rules, session_handler);
 			else
-			{
-				result = it->second->handle(req, server_rules, session_handler);
-				close_flag = it->second->close_flag;
-			}
+				return dispatch("PostTrash", req, server_rules, session_handler);
+		}
+		return dispatch(it->first, req, server_rules, session_handler);
 	}
-	else
-	{
-		result =  handlers["TrashHandler"]->handle(req, server_rules, session_handler);
-		close_flag = handlers["TrashHandler"]->close_flag;
-	}
-	return (result);
+	return dispatch("TrashHandler", req, server_rules, session_handler);
 }
 
 
@@ -187,7 +149,16 @@ bool RouterHandler::needs_redirection(const std::string &path,
 
 int RouterHandler::get_fd_stream()
 {
-    return handlers["GET"]->get_fd_stream();
+    if (last_used_handler)
+        return last_used_handler->get_fd_stream();
+    return -1;
+}
+
+pid_t RouterHandler::get_cgi_pid()
+{
+    if (last_used_handler)
+        return last_used_handler->get_cgi_pid();
+    return -1;
 }
 
                  
