@@ -36,4 +36,3 @@ struct client_s
 	answer_from_server_s	answer_from_server;
 	stream_out_data_s		stream_out_data;
 }
-}

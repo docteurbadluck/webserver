@@ -65,16 +65,16 @@ void run_the_server(ServerBuilder *server_builder, const t_server_rules &server_
 {
 	try
 	{
-		SessionStorageFramework session_storage;
-		SessionPolicyFramework  session_policy(server_rules);
-		SessionHandlerUC        session_handler(session_storage, session_policy);
+		SessionStorageFramework	session_storage;
+		SessionPolicyFramework	session_policy(server_rules);
+		SessionHandlerUC		session_handler(session_storage, session_policy);
 
-		RequestParser           request_parser;
-		RouterHandler           main_handler;
-		RequestHandlerUC        request_handler(request_parser, main_handler);
+		RequestParser			request_parser;
+		RouterHandler			main_handler;
+		RequestHandlerUC		request_handler(request_parser, main_handler);
 
-		EpollServerRunner Epoll_server_runner(server_rules, session_handler, request_handler);
-		RunnerServer runner_server(server_builder->get_servers(), Epoll_server_runner);
+		EpollServerRunner		Epoll_server_runner(server_rules, session_handler, request_handler);
+		RunnerServer			runner_server(server_builder->get_servers(), Epoll_server_runner);
 
 		runner_server.start_the_server();
 	}

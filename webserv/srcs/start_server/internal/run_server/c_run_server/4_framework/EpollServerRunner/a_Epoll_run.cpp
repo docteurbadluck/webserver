@@ -1,5 +1,9 @@
 #include "EpollServerRunner.hpp"
 
+static const int MAX_EVENTS = 64;
+static const int EPOLL_TIMEOUT_MS = 1000;
+
+
 void EpollServerRunner::run()
 {
 	while (this->running)
@@ -24,7 +28,7 @@ int	EpollServerRunner::wait_for_events()
 	int n;
 	while (true)
 	{
-		n = epoll_wait(this->epoll_fd, this->events, 64, 1000);
+		n = epoll_wait(this->epoll_fd, this->events, MAX_EVENTS, EPOLL_TIMEOUT_MS);
 		if (n == -1)
 		{
 			if (errno == EINTR)
