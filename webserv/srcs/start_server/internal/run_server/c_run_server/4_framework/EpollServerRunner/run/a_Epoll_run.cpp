@@ -1,9 +1,5 @@
 #include "EpollServerRunner.hpp"
 
-static const int MAX_EVENTS = 64;
-static const int EPOLL_TIMEOUT_MS = 1000;
-
-
 void EpollServerRunner::run()
 {
 	while (this->running)
@@ -43,7 +39,7 @@ void EpollServerRunner::process_events(int eventCount)
 {
 	for (int i = 0; i < eventCount; i++)
 	{
-		int fd = events[i].data.fd;
+		int fd = this->events[i].data.fd;
 		if (is_new_client(fd))
 		{
 			connect_new_client(fd);

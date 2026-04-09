@@ -36,14 +36,13 @@ srcs/start_server/internal/init_server/b_build_server/4_framework/ServerSocket/b
 srcs/start_server/internal/init_server/b_build_server/4_framework/ServerSocket/ServerSocket.cpp \
 srcs/start_server/internal/init_server/b_build_server/4_framework/SocketFactory/SocketFactory.cpp \
 \
-srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/a_Epoll_run.cpp \
-srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/b_Epoll_handle_connection.cpp \
-srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/c_Epoll_handle_message.cpp \
-srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/d_Epoll_handlers.cpp \
-srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/e_Epoll_send_response_to_client.cpp \
-srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/Epoll_init.cpp \
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/run/a_Epoll_run.cpp \
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/run/b_Epoll_handle_connection.cpp \
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/run/c_Epoll_handle_message.cpp \
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/run/d_Epoll_handlers.cpp \
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/run/e_Epoll_send_response_to_client.cpp \
 srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/EpollServerRunner.cpp \
-srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/Epoll_disconect.cpp\
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/Epoll_utils.cpp\
 srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/InitEpoll/InitEpoll.cpp\
 srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/StreamIn/StreamIn.cpp\
 srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/ConnectionManager/ConnectionManager.cpp\

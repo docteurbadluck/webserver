@@ -15,3 +15,16 @@ EpollServerRunner::~EpollServerRunner()
 	delete this->mode_switcher;
 	close(this->epoll_fd);
 }
+
+void EpollServerRunner::init(std::vector<ISocketServer*> servers)
+{
+	InitEpoll init_epoll;
+
+	init_epoll.initialise_epoll(*this, servers);
+}
+
+
+void EpollServerRunner::turn_off()
+{
+	this->running = false;
+}

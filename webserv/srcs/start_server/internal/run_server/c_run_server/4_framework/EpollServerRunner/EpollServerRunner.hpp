@@ -41,6 +41,10 @@ class EpollServerRunner : public IRunServer
 		void 						init(std::vector<ISocketServer*> servers);
         void                        turn_off();
 	private :
+
+		static const int MAX_EVENTS = 64;
+		static const int EPOLL_TIMEOUT_MS = 1000;
+		
         const t_server_rules        &server_rules;
         SessionHandlerUC            &session_handler;
         RequestHandlerUC            &request_handler;

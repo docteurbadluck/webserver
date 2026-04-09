@@ -19,7 +19,6 @@ std::string CommandManager::read_command()
 	return str;
 }
 
-
 bool CommandManager::execute_command(
     EpollServerRunner &runner)
 {
@@ -31,12 +30,10 @@ bool CommandManager::execute_command(
     if (it == command_list.end())
     {
         std::cout << "command not recognised" << std::endl;
-        return false;
+        it = command_list.find("help\n");
     }
-
     return (this->*(it->second))(runner);
 }
-
 
 bool CommandManager::cmd_close(EpollServerRunner &runner)
 {
@@ -52,7 +49,7 @@ bool CommandManager::cmd_help(EpollServerRunner &)
     for (std::map<std::string, CommandFunction>::iterator it = command_list.begin();
          it != command_list.end(); ++it)
     {
-        std::cout << " - " << it->first << std::endl;
+        std::cout << " - " << it->first;
     }
     return true;
 }

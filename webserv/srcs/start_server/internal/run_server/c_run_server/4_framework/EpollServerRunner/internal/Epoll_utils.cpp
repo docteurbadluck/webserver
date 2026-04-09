@@ -1,12 +1,11 @@
 #include "EpollServerRunner.hpp"
 
-void EpollServerRunner::init(std::vector<ISocketServer*> servers)
+void EpollServerRunner::disconnect_client(IClient* client)
 {
-	InitEpoll init_epoll;
+    ConnectionManager conn_mgr;
 
-	init_epoll.initialise_epoll(*this, servers);
+    conn_mgr.remove_client(client, this->clients, this->epoll_fd);
 }
-
 
 // sockets tools 
 void EpollServerRunner::set_socket_non_blocking(int fd)
@@ -27,9 +26,4 @@ bool EpollServerRunner::is_keyboard_command(int fd)
         return true;
     }
     return false;
-}
-
-void EpollServerRunner::turn_off()
-{
-	this->running = false;
 }
