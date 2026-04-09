@@ -12,8 +12,3 @@ Client::~Client()
 {
 	close(this->fd);
 }
-
-int Client::get_fd() const
-{
-	return fd;
-}

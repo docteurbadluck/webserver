@@ -1,5 +1,6 @@
 #include "EpollServerRunner.hpp"
 
+//Accept all pending client cause the socket are non-bloking it return -1 when the queu is empty.
 void EpollServerRunner::connect_new_client(int server_fd)
 {
 	ConnectionManager connection_manager;

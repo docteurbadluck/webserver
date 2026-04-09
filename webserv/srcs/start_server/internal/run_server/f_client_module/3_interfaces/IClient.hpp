@@ -47,14 +47,10 @@ class IClient
 {
 	public :
 	StreamState							stream; 
-
 	std::string							overflow;
 	std::vector<raw_request_s>			raw_request_completed;
 	raw_request_s						current;
-
-	//answer_from_server_s				answer_from_server;
 	std::deque<answer_from_server_s>	pending_answers;
-
 	std::time_t					last_activity;
 
 	virtual ~IClient() {};

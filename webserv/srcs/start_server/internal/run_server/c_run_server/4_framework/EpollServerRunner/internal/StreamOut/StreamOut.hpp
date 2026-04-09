@@ -17,13 +17,17 @@ enum streamout_status
 class StreamOut
 {
 public:
-    // return true = stream terminé
-    // return false = encore en cours (EPOLLOUT)
-    streamout_status	pump(IClient *client);
+    streamout_status    pump(IClient *client);
 
 private:
-	streamout_status send_buffer(IClient*, StreamState&);
-	streamout_status send_file(IClient*, StreamState&);
-	void	prepare_next_response(IClient *client);
+    streamout_status    send_buffer(IClient*, StreamState&);
+    streamout_status    send_file(IClient*, StreamState&);
+    streamout_status    send_fd_chunk(IClient*, StreamState&, char*, ssize_t);
+    streamout_status    finalize_stream(IClient*, StreamState&);
+    streamout_status    finalize_fd(StreamState&);
+    streamout_status    timeout_cgi(StreamState&);
+    bool                is_cgi_timed_out(StreamState&);
+    void                reap_cgi(StreamState&);
+    void                prepare_next_response(IClient*);
 };
 

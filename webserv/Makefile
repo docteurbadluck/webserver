@@ -45,10 +45,14 @@ srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner
 srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/Epoll_utils.cpp\
 srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/InitEpoll/InitEpoll.cpp\
 srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/StreamIn/StreamIn.cpp\
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/StreamIn/internal/StreamIn_extract.cpp\
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/StreamIn/internal/StreamIn_chunked.cpp\
 srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/ConnectionManager/ConnectionManager.cpp\
 srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/TimeoutManager/TimeoutManager.cpp\
 srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/CommandManager/CommandManager.cpp\
 srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/StreamOut/StreamOut.cpp\
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/StreamOut/internal/StreamOut_send.cpp\
+srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/StreamOut/internal/StreamOut_finalize_stream.cpp\
 srcs/start_server/internal/run_server/c_run_server/4_framework/EpollServerRunner/internal/ModeSwitcher/ModeSwitcher.cpp\
 \
 srcs/start_server/internal/run_server/d_handle_request/4_framework/Handler/BaseHandler/BaseHandler.cpp \
@@ -76,7 +80,6 @@ srcs/start_server/internal/run_server/d_handle_request/4_framework/RequestParser
 srcs/start_server/internal/run_server/e_handle_session/4_framework/policy/SessionPolicyFramework.cpp \
 srcs/start_server/internal/run_server/e_handle_session/4_framework/storage/SessionStorageFramework.cpp \
 srcs/start_server/internal/run_server/f_client_module/4_framework/Client/Client.cpp \
-srcs/start_server/internal/run_server/f_client_module/4_framework/Client/ClientExtract.cpp \
 srcs/start_server/internal/run_server/f_client_module/4_framework/Client/ClientTools.cpp \
 
 

@@ -4,8 +4,7 @@ void EpollServerRunner::handle_message_from_client(IClient *client)
 {
     stream_status_e st = stream_in.read_from_fd(
         client->get_fd(),
-        *client
-    );
+        *client);
 
     if (st == STREAM_DISCONNECT || st == STREAM_ERROR)
     {

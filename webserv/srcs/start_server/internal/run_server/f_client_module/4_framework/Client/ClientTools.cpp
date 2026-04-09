@@ -1,5 +1,10 @@
 #include "Client.hpp"
 
+int Client::get_fd() const
+{
+	return fd;
+}
+
 void	Client::update_last_activity()
 {
 	this->last_activity = std::time(NULL);

@@ -75,6 +75,9 @@ class EpollServerRunner : public IRunServer
         void                        handle_message_from_client(IClient *client);
         void                        handle_request(IClient *client);
 		void						handle_requests(IClient *client);
+		void						process_completed_requests(IClient *client);
+		answer_from_server_s		build_answer(raw_request_s &req);
+		void						reset_client_stream(IClient *client);
 		void						send_response_to_client(IClient *client);
       
 		void                        disconnect_client(IClient *client);
