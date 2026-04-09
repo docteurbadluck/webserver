@@ -5,6 +5,8 @@ std::string PostUploadHandler::handle(const t_parsed_request &req, const t_serve
 	verify_mandatory_field(req);
 	init_field(req, server_rules, session_handler);
 	this->set_cookie_flag = this->request.were_cookies_sent;
+	if (server_rules.enable_upload == false)
+		return build_http_response(403, req.body, server_rules.error_page_filepath, "");
 	std::string url_path = map_to_url_path(req.path, server_rules.file_system_root);
 
 	std::string filepath = build_file_path_simple(url_path, server_rules);

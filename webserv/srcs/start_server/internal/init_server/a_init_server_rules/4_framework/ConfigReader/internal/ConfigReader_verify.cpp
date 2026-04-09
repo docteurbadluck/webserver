@@ -6,6 +6,12 @@ void ConfigReader::verify_pathfile_validity()
 	verify_collection_paths();
 }
 
+void ConfigReader::verify_ip_port_pairs() const
+{
+	if (this->has_pending_ip)
+		throw std::runtime_error("Error config : missing port for ip");
+}
+
 void ConfigReader::verify_single_paths()
 {
 	if (this->new_config.error_page_filepath.empty() || 
@@ -33,6 +39,7 @@ void ConfigReader::verify_collection_paths()
 
 void ConfigReader::verify_mandatory_fields(const t_server_config &new_config)
 {
+	verify_ip_port_pairs();
 	if (new_config.backlog <= 0)
 		throw std::runtime_error("Error config : backlog is missing");
 	if (new_config.ip_port_vector.empty())

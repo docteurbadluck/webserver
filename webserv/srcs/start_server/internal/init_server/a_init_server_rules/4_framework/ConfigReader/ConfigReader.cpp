@@ -18,6 +18,8 @@ void ConfigReader::init_new_config()
 	this->new_config.max_size_request_body = 0;
 	this->new_config.enable_directory_listing = false;
 	this->new_config.enable_upload = false;
+	this->ip_tmp = 0;
+	this->has_pending_ip = false;
 	this->new_config.client_timeout_in_second = 10;
 	this->new_config.session_timeout_in_minute = 30;
 	this->new_config.session_cookie_name = "session_id";

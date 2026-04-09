@@ -5,7 +5,7 @@ CONFIG_ORIGINAL="config.test.original"
 CONFIG_FILE="config.test"
 TEST_ORIGINAL="test_delete.original.c"
 TEST_FILE="test_delete.c"
-FIX_PATH_SCRIPT="fix_paths.sh"
+FIX_PATH_SCRIPT="fix_path.sh"
 
 # ====== VARIABLES ======
 PROJECT_ROOT="$(pwd)"

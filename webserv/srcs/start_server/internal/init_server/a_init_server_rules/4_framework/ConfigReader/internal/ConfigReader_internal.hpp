@@ -1,6 +1,7 @@
     	t_server_config     new_config;
 		std::string			config_content;
 		unsigned long		ip_tmp;
+		bool				has_pending_ip;
 
     	void 				parse_config_line(const std::string &line);
 		void				verify_pathfile_validity();
@@ -36,5 +37,6 @@
 
 		void				verify_single_paths();
 		void				verify_collection_paths();
+		void				verify_ip_port_pairs() const;
 		bool				is_valid_file(const std::string& path);
 		bool				is_valid_repository(const std::string& path);

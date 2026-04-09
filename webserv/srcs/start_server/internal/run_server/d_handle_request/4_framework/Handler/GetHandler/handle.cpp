@@ -64,7 +64,10 @@ std::string GetHandler::build_final_response(
 
     if ((st.st_mode & S_IFDIR) != 0)
     {
-        std::string index_file = filepath + "/index.html";
+        std::string index_file = filepath;
+        if (!index_file.empty() && index_file[index_file.size() - 1] != '/')
+            index_file += "/";
+        index_file += server_rules.default_filepath;
         struct stat st_index;
         if (stat(index_file.c_str(), &st_index) == 0)
         {

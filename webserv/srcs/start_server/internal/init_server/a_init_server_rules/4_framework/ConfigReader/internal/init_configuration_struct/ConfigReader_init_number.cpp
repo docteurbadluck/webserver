@@ -11,6 +11,9 @@ void ConfigReader::init_backlog(const std::string& value)
 
 void ConfigReader::init_ip(const std::string& value)
 {
+	if (this->has_pending_ip)
+		throw std::runtime_error("Error config : missing port for ip");
+
 	struct addrinfo hints, *res;
 	hints = addrinfo();
 	hints.ai_family = AF_INET;
@@ -20,11 +23,15 @@ void ConfigReader::init_ip(const std::string& value)
 		throw std::runtime_error("Error config : ip");
 	struct sockaddr_in *addr = (struct sockaddr_in *)res->ai_addr;
 	this->ip_tmp = ntohl(addr->sin_addr.s_addr);
+	this->has_pending_ip = true;
 	freeaddrinfo(res);
 }
 
 void ConfigReader::init_port(const std::string& value)
 {
+	if (!this->has_pending_ip)
+		throw std::runtime_error("Error config : port without ip");
+
 	std::istringstream	ss(value);
 	std::string			port;
 	long				nbr_port;
@@ -38,6 +45,7 @@ void ConfigReader::init_port(const std::string& value)
 		throw std::runtime_error("Error config: port");
 	this->new_config.ip_port_vector.
 	push_back(std::make_pair(this->ip_tmp, nbr_port));
+	this->has_pending_ip = false;
 }
 
 void ConfigReader::init_max_size_request_body(const std::string& value)
