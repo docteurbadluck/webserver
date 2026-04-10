@@ -16,9 +16,9 @@ std::string	GetHandler::handle(const t_parsed_request &req,
 								const t_server_rules &server_rules,
 								SessionHandlerUC &session_handler) 
 {
+    std::string filepath;
 	prepare_request(req, server_rules, session_handler);
 	std::string url_path = resolve_url_path(req, server_rules);
-	std::string filepath;
 	int status_code = resolve_file_path(url_path, server_rules, filepath);
 	if (status_code != 200)
 		return build_http_response(status_code, "", server_rules.error_page_filepath, filepath);
@@ -55,47 +55,26 @@ std::string GetHandler::build_final_response(
     const std::string &filepath,
     const t_server_rules &server_rules)
 {
-    struct stat st;
-    if (stat(filepath.c_str(), &st) != 0)
+    if (!this->directory_listing)
     {
-        // fichier/dossier inexistant → 404
-        return build_http_response(404, "", server_rules.error_page_filepath, filepath);
-    }
-
-    if ((st.st_mode & S_IFDIR) != 0)
-    {
-        std::string index_file = filepath;
-        if (!index_file.empty() && index_file[index_file.size() - 1] != '/')
-            index_file += "/";
-        index_file += server_rules.default_filepath;
-        struct stat st_index;
-        if (stat(index_file.c_str(), &st_index) == 0)
-        {
-			// i want do know the size of the 
-			//st_index.server_
-            // index.html existe → servir le fichier
-            std::string body = read_file_content(index_file);
-            this->file_content = read_file_chunks(index_file, 8192);
-            return build_http_response(200, body, server_rules.error_page_filepath, index_file);
-        }
-        else if (directory_listing)
-        {
-            // directory listing autorisé → générer page
-            std::string listing = build_directory_listing(filepath, url_path);
-            return build_http_response(200, listing, server_rules.error_page_filepath, filepath);
-        }
-        else
-        {
-            // directory listing interdit → 403
-            return build_http_response(403, "", server_rules.error_page_filepath, filepath);
-        }
-    }
-    else
-    {
-        // fichier normal → servir contenu
         std::string body = read_file_content(filepath);
         this->file_content = read_file_chunks(filepath, 8192);
         return build_http_response(200, body, server_rules.error_page_filepath, filepath);
     }
+
+    std::string index_file = filepath;
+    if (!index_file.empty() && index_file[index_file.size() - 1] != '/')
+        index_file += "/";
+    index_file += server_rules.default_filepath;
+
+    struct stat st_index;
+    if (stat(index_file.c_str(), &st_index) == 0)
+    {
+        std::string body = read_file_content(index_file);
+        this->file_content = read_file_chunks(index_file, 8192);
+        return build_http_response(200, body, server_rules.error_page_filepath, index_file);
+    }
+    std::string listing = build_directory_listing(filepath, url_path);
+    return build_http_response(200, listing, server_rules.error_page_filepath, filepath);
 }
 

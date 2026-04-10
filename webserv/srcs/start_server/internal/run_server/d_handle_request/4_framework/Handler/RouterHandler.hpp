@@ -24,5 +24,6 @@ class RouterHandler : public IRequestHandler
 		std::string	dispatch(const std::string &name, const t_parsed_request &req, const t_server_rules &server_rules, SessionHandlerUC &session_handler);
 		bool	check_method_allowed(const std::string &path, const std::string &method, const std::map<std::string, std::set<std::string> > &rules);
 		bool	needs_redirection(const std::string &path, const t_server_rules &server_rules) const;
+		std::string	dispatch_post(const t_parsed_request &req, const t_server_rules &server_rules, SessionHandlerUC &session_handler);
 		int		close_flag;
 };

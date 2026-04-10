@@ -178,8 +178,6 @@ pid_t BaseHandler::get_cgi_pid()
 	return cgi_pid;
 }
 
-
-
 int BaseHandler::find_out_close_flag(const std::string &answer)
 {
     size_t header_end = answer.find("\r\n\r\n");

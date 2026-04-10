@@ -4,7 +4,11 @@ std::string CGIHandler::handle(const t_parsed_request &req, const t_server_rules
 {
 	verify_mandatory_field(req);
 	init_field(req, server_rules, session_handler);
-	std::string url_path = map_to_url_path(req.path, server_rules.file_system_root);
+	std::string clean_path = req.path;
+	size_t qmark = clean_path.find('?');
+	if (qmark != std::string::npos)
+		clean_path = clean_path.substr(0, qmark);
+	std::string url_path = map_to_url_path(clean_path, server_rules.file_system_root);
 	std::string filepath = build_file_path_simple(url_path, server_rules);
 
 	// Check if this file has a CGI extension (derived from CGI_pathfile entries)

@@ -8,7 +8,6 @@
 
 RequestHandlerUC::RequestHandlerUC(IRequestParser &request_parser, IRequestHandler &request_handler) : parser(request_parser), handler(request_handler)
 {
-
 }
 
 RequestHandlerUC::~RequestHandlerUC()

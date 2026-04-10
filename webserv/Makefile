@@ -18,7 +18,8 @@ srcs/start_server/internal/init_server/b_build_server/2_usescases/ServerBuilder/
 \
 srcs/start_server/internal/run_server/c_run_server/2_usescases/RunnerServer/RunnerServer.cpp \
 srcs/start_server/internal/run_server/d_handle_request/2_usescases/RequestHandler/RequestHandlerUC.cpp \
-srcs/start_server/internal/run_server/e_handle_session/2_usescases/SesssionHandler/SessionHandlerUC.cpp 
+srcs/start_server/internal/run_server/e_handle_session/2_usescases/SesssionHandler/SessionHandlerUC.cpp \
+srcs/start_server/internal/run_server/e_handle_session/2_usescases/SesssionHandler/SessionHandlerUC_request.cpp 
 
 SRC_FRAMEWORK = \
 srcs/start_server/internal/init_server/a_init_server_rules/4_framework/ConfigReader/ConfigReader.cpp \

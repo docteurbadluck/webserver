@@ -11,6 +11,7 @@
 #include "RedirectHandler.hpp"
 #include "CGIHandler.hpp"
 
+static bool starts_with(const std::string &str, const std::string &prefix);
 
 RouterHandler::RouterHandler() : last_used_handler(NULL)
 {
@@ -25,7 +26,6 @@ RouterHandler::RouterHandler() : last_used_handler(NULL)
 	handlers["MethodNotAllowedHandler"]= new MethodNotAllowedHandler();
 	handlers["InternalErrorHandler"]= new InternalErrorHandler();
 	handlers["RedirectHandler"]= new RedirectHandler();
-
 	handlers["CGIHandler"] = new CGIHandler();
 }
 RouterHandler::~RouterHandler()
@@ -74,19 +74,21 @@ std::string RouterHandler::handle(const t_parsed_request &req, const t_server_ru
 	if (it != handlers.end())
 	{
 		if (it->first == "POST")
-		{
-			if (req.path.find("/upload") != std::string::npos)
-				return dispatch("POSTUpload", req, server_rules, session_handler);
-			else if (req.path.find("/login") != std::string::npos)
-				return dispatch("PostLogin", req, server_rules, session_handler);
-			else if (req.path.find("/close") != std::string::npos)
-				return dispatch("PostClose", req, server_rules, session_handler);
-			else
-				return dispatch("PostTrash", req, server_rules, session_handler);
-		}
+			return dispatch_post(req, server_rules, session_handler);
 		return dispatch(it->first, req, server_rules, session_handler);
 	}
 	return dispatch("TrashHandler", req, server_rules, session_handler);
+}
+
+std::string RouterHandler::dispatch_post(const t_parsed_request &req, const t_server_rules &server_rules, SessionHandlerUC &session_handler)
+{
+	if (req.path.find("/upload") != std::string::npos)
+		return dispatch("POSTUpload", req, server_rules, session_handler);
+	else if (req.path.find("/login") != std::string::npos)
+		return dispatch("PostLogin", req, server_rules, session_handler);
+	else if (req.path.find("/close") != std::string::npos)
+		return dispatch("PostClose", req, server_rules, session_handler);
+	return dispatch("PostTrash", req, server_rules, session_handler);
 }
 
 
@@ -117,11 +119,6 @@ bool RouterHandler::check_method_allowed(const std::string &path,
 }
 
 
-static bool starts_with(const std::string &str, const std::string &prefix)
-{
-    return str.size() >= prefix.size()
-        && str.compare(0, prefix.size(), prefix) == 0;
-}
 
 bool RouterHandler::needs_redirection(const std::string &path,
 					const t_server_rules &server_rules) const
@@ -146,6 +143,11 @@ bool RouterHandler::needs_redirection(const std::string &path,
     return false;
 }
 
+static bool starts_with(const std::string &str, const std::string &prefix)
+{
+    return str.size() >= prefix.size()
+        && str.compare(0, prefix.size(), prefix) == 0;
+}
 
 int RouterHandler::get_fd_stream()
 {
