@@ -1,3 +1,5 @@
+<img width="1076" height="694" alt="L2" src="https://github.com/user-attachments/assets/64d815bf-2599-4f8d-be99-018fc42022b1" />
+<img width="1297" height="650" alt="L1" src="https://github.com/user-attachments/assets/2824a556-6d9d-473a-a345-33aabb06a74a" />
 *This project has been created as part of the 42 curriculum by jholterh, tdeliot.*
 
 ## Description
@@ -19,7 +21,7 @@ https://github.com/user-attachments/assets/1eb89365-5086-4a0c-b59a-5b0b75e8bd69
 https://github.com/user-attachments/assets/a130ae8e-42d6-42ad-b48d-a06b5c4c9cfe
 
 
-
+<img width="887" height="772" alt="epoll_loop" src="https://github.com/user-attachments/assets/c209f6f1-2929-4e95-8e8b-304fbc954ece" />
 
 ## Instructions
 
