@@ -42,13 +42,13 @@ https://github.com/user-attachments/assets/a130ae8e-42d6-42ad-b48d-a06b5c4c9cfe
 
 ## Architecture
 
+<p align="center"><em>L1 : System Context</em></p>
 <p align="center">
-  <br/><em>L1 : System Context</em>
   <img width="700" height="450" alt="L1 - System Context" src="https://github.com/user-attachments/assets/2824a556-6d9d-473a-a345-33aabb06a74a" />
 </p>
 
+<p align="center"><em>L2 : Components</em></p>
 <p align="center">
-  <br/><em>L2 : Components</em>
   <img width="700" height="450" alt="L2 - Containers" src="https://github.com/user-attachments/assets/64d815bf-2599-4f8d-be99-018fc42022b1" />
 </p>
 
@@ -58,13 +58,13 @@ https://github.com/user-attachments/assets/a130ae8e-42d6-42ad-b48d-a06b5c4c9cfe
 
 The server runs on a single `epoll` event loop that multiplexes all client connections and CGI pipes without blocking.
 
+<p align="center"><em>Epoll Loop Overview</em></p>
 <p align="center">
-  <br/><em>Epoll Loop Overview</em>
   <img width="700" alt="epoll event loop diagram" src="https://github.com/user-attachments/assets/c209f6f1-2929-4e95-8e8b-304fbc954ece" />
 </p>
 
+<p align="center"><em>CGI Overview</em></p>
 <p align="center">
-  <br/><em>CGI Overview</em>
   <img width="600" alt="CGI flow diagram" src="docs/architecture/CGI.png" />
 </p>
 
